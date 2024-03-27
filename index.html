@@ -29,6 +29,12 @@
         display: block;
         width:100%;
     }
+    canvas{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+    }
   </style>
 </head>
 
@@ -89,11 +95,6 @@
 
           canvas.width = width;
           canvas.height = height;
-
-          canvas.style.position = 'absolute';
-          canvas.style.left = '50%';
-          canvas.style.top = '50%';
-          canvas.style.transform = 'translate(-50%, -50%)';
 
           method.drawFrame(currentFrame);
           method.requestToRender();

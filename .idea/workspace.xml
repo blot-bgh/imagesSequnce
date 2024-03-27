@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a453418a-ac13-4e96-9443-81acd93db0d5" name="변경" comment="" />
+    <list default="true" id="a453418a-ac13-4e96-9443-81acd93db0d5" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,7 +60,7 @@
       <workItem from="1711437356158" duration="3726000" />
       <workItem from="1711442063345" duration="1087000" />
       <workItem from="1711493150631" duration="69000" />
-      <workItem from="1711497383206" duration="1614000" />
+      <workItem from="1711497383206" duration="2347000" />
     </task>
     <servers />
   </component>
@@ -69,7 +72,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/index.html</url>
-          <line>73</line>
+          <line>77</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
