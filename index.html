@@ -1,0 +1,122 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Scroll</title>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <style>
+      *{
+          padding:0;
+          margin:0;
+          box-sizing: border-box;
+      }
+    .sticky-wrap{
+        height:500vh;
+    }
+    .sticky-box{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position:sticky;
+        top:0;
+        width:100%;
+        height:100vh;
+        overflow: hidden;
+    }
+    video{
+        display: block;
+        width:100%;
+    }
+  </style>
+</head>
+
+<body>
+<main>
+  <section class="sticky-wrap">
+    <div class="sticky-box">
+      <canvas id="imageCanvas"></canvas>
+    </div>
+  </section>
+</main>
+<script>
+    const videoScroller = (()=>{
+      const parentWrap = document.querySelector('.sticky-wrap');
+      const stickyBox = parentWrap.querySelector('.sticky-box');
+      const canvas = document.getElementById('imageCanvas');
+      const context = canvas.getContext('2d');
+      const aspectRatio = 1280 / 720; // 16:9 비율
+
+      const totalFrames = 250;
+      let currentFrame = 0;
+      let renderRequest;
+
+      const method = {
+        drawFrame:(frameIndex)=>{
+          const image = new Image();
+          image.src = `./dist/output_image_${String(frameIndex).padStart(4, '0')}.png`;
+          image.onload = function() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+          };
+        },
+        onScroll:()=> {
+          currentFrame = Math.min(
+              totalFrames,
+              Math.ceil((scrollY / (parentWrap.clientHeight - innerHeight)) * totalFrames)
+          );
+          method.requestToRender();
+        },
+        requestToRender : ()=>{
+          renderRequest = true;
+        },
+        render: ()=>{
+          if(renderRequest){
+            method.drawFrame(currentFrame)
+          }
+          requestAnimationFrame(method.render)
+        },
+        onResize:()=>{
+          let width = window.innerWidth;
+          let height = window.innerWidth / aspectRatio;
+
+          // 창의 높이가 캔버스의 높이보다 작은 경우, 높이를 기준으로 캔버스 크기 조정
+          if (height > window.innerHeight) {
+            height = window.innerHeight;
+            width = height * aspectRatio;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          canvas.style.position = 'absolute';
+          canvas.style.left = '50%';
+          canvas.style.top = '50%';
+          canvas.style.transform = 'translate(-50%, -50%)';
+
+          method.drawFrame(currentFrame);
+          method.requestToRender();
+        }
+      }
+      const bindEvent = () => {
+        window.addEventListener('scroll', method.onScroll);
+        window.addEventListener('resize', method.onResize);
+      }
+      const initialize = ()=>{
+        method.drawFrame(0);
+        method.render();
+        method.onResize();
+        bindEvent();
+      }
+      return {
+        init:initialize
+      }
+    })()
+
+    videoScroller.init()
+
+</script>
+</body>
+
+</html>
